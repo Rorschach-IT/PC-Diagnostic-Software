@@ -5,8 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PC_Scan_App"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="700">
+    <Grid Height="450" Background="#FBF9F9">
+        <!-- SOFTWARE -->
+        <TextBlock FontSize="20" FontWeight="Bold" TextAlignment="Center" Padding="0" FontFamily="Arial" Text="SOFTWARE" Margin="0,20,350,407" Grid.ColumnSpan="2"/>
+        <Border BorderThickness="0.6,  0, 0, 0" BorderBrush="black" Padding="5" Margin="354.5,0,0,390"/>
 
+        <!-- HARDWARE -->
+        <TextBlock FontSize="20" FontWeight="Bold" TextAlignment="Center" Padding="0" FontFamily="Arial" Margin="355,20,0,407"><Run Language="pl-pl" Text="HARDWARE"/></TextBlock>
+        
+        <!-- Left side buttons -->
+        <Button x:Name="WindowsButton" Margin="0,60,345,342" Background="White"
+        BorderThickness="0, 1.2, 1.2, 0" Content="Windows full information"
+        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+
+        <Button x:Name="BiosButton" Margin="0,109,345,293" Background="White"
+        BorderThickness="0, 1.2, 1.2, 1.2" Content="BIOS data"
+        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+
+        <!-- Right side buttons -->
+        <Button x:Name="ProcessorButton" Margin="355,60,172,342" Background="White"
+        BorderThickness="0, 1.2, 1.2, 0" Content="Processor"
+        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+
+        <Button x:Name="MotherboardButton" Margin="528,60,0,342" Background="White"
+        BorderThickness="0, 1.2, 0, 0" Content="Motherboard"
+        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+
+        <Button x:Name="MemoryButton" Margin="355,109,172,293" Background="White"
+        BorderThickness="0, 1.2, 1.2, 0" Content="Memory"
+        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+
+        <Button x:Name="StorageButton" Margin="528,109,0,293" Background="White"
+        BorderThickness="0, 1.2, 1.2, 0" Content="Storage"
+        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+
+        <Button x:Name="GraphicsButton" Margin="354,156,172,246" Background="White"
+        BorderThickness="1.2, 1.2, 1.2, 1.2" Content="Graphics"
+        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+
+        <Button x:Name="NetworkButton" Margin="528,156,-1,246" Background="White"
+        BorderThickness="0, 1.2, 1.2, 1.2" Content="Network adapters"
+        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
     </Grid>
 </Window>

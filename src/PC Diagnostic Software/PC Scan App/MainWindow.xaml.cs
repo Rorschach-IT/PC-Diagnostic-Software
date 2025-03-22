@@ -1,24 +1,34 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PC_Scan_App
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly Brush hoverBackground = (Brush)new BrushConverter().ConvertFromString("#EEDEDE");
+        private readonly Brush defaultBackground = (Brush)new BrushConverter().ConvertFromString("#FFFFFF");
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                btn.Background = hoverBackground;
+            }
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                btn.Background = defaultBackground;
+            }
         }
     }
 }
