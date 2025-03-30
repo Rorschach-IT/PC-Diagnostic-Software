@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace PC_Scan_App
@@ -13,22 +11,6 @@ namespace PC_Scan_App
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_MouseEnter(object sender, MouseEventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.Background = hoverBackground;
-            }
-        }
-
-        private void Button_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.Background = defaultBackground;
-            }
         }
     }
 }

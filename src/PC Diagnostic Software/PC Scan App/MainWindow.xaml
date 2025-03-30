@@ -1,51 +1,61 @@
 ﻿<Window x:Class="PC_Scan_App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PC_Scan_App"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="700">
-    <Grid Height="450" Background="#FBF9F9">
-        <!-- SOFTWARE -->
-        <TextBlock FontSize="20" FontWeight="Bold" TextAlignment="Center" Padding="0" FontFamily="Arial" Text="SOFTWARE" Margin="0,20,350,407" Grid.ColumnSpan="2"/>
-        <Border BorderThickness="0.6,  0, 0, 0" BorderBrush="black" Padding="5" Margin="354.5,0,0,390"/>
+        Title="PC Scan App"
+        ResizeMode="CanResize"
+        WindowState="Normal">
+    <!--<Viewbox>-->
+        <Grid Background="#FBF9F9" Width="auto" Height="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <!-- HARDWARE -->
-        <TextBlock FontSize="20" FontWeight="Bold" TextAlignment="Center" Padding="0" FontFamily="Arial" Margin="355,20,0,407"><Run Language="pl-pl" Text="HARDWARE"/></TextBlock>
-        
-        <!-- Left side buttons -->
-        <Button x:Name="WindowsButton" Margin="0,60,345,342" Background="White"
-        BorderThickness="0, 1.2, 1.2, 0" Content="Windows full information"
-        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <Button x:Name="BiosButton" Margin="0,109,345,293" Background="White"
-        BorderThickness="0, 1.2, 1.2, 1.2" Content="BIOS data"
-        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+            <!-- Headers -->
+            <Border BorderThickness="0 1 0 1" BorderBrush="Black" Grid.Row="0" Grid.Column="0">
+                <TextBlock Text="SOFTWARE" FontWeight="Bold" FontSize="20" TextAlignment="Center" Padding="12"/>
+            </Border>
+            <Border BorderThickness="1 1 0 1" BorderBrush="Black" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+                <TextBlock Text="HARDWARE" FontWeight="Bold" FontSize="20" TextAlignment="Center" Padding="12"/>
+            </Border>
 
-        <!-- Right side buttons -->
-        <Button x:Name="ProcessorButton" Margin="355,60,172,342" Background="White"
-        BorderThickness="0, 1.2, 1.2, 0" Content="Processor"
-        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+            <!-- Software Side -->
+            <Border BorderThickness="0 0 0 1" BorderBrush="Black" Grid.Row="1" Grid.Column="0">
+            <Button Content="Windows full information" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
+            </Border>
+            <Border BorderThickness="0 0 0 1" BorderBrush="Black" Grid.Row="2" Grid.Column="0">
+            <Button Content="BIOS data" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
+            </Border>
 
-        <Button x:Name="MotherboardButton" Margin="528,60,0,342" Background="White"
-        BorderThickness="0, 1.2, 0, 0" Content="Motherboard"
-        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+            <!-- Hardware Side -->
+            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Grid.Row="1" Grid.Column="1">
+                <Button Content="Processor" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
+            </Border>
+                <Border BorderThickness="0 0 0 1" BorderBrush="Black" Grid.Row="1" Grid.Column="2">
+            <Button Content="Motherboard" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
+            </Border>
 
-        <Button x:Name="MemoryButton" Margin="355,109,172,293" Background="White"
-        BorderThickness="0, 1.2, 1.2, 0" Content="Memory"
-        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
+            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Grid.Row="2" Grid.Column="1">
+            <Button Content="Memory" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
+            </Border>
+                <Border BorderThickness="0 0 0 1" BorderBrush="Black" Grid.Row="2" Grid.Column="2">
+            <Button Content="Storage" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
+            </Border>
 
-        <Button x:Name="StorageButton" Margin="528,109,0,293" Background="White"
-        BorderThickness="0, 1.2, 1.2, 0" Content="Storage"
-        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
-
-        <Button x:Name="GraphicsButton" Margin="354,156,172,246" Background="White"
-        BorderThickness="1.2, 1.2, 1.2, 1.2" Content="Graphics"
-        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
-
-        <Button x:Name="NetworkButton" Margin="528,156,-1,246" Background="White"
-        BorderThickness="0, 1.2, 1.2, 1.2" Content="Network adapters"
-        Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
-    </Grid>
+            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Grid.Row="3" Grid.Column="1">
+            <Button Content="Graphics" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
+            </Border>
+            <Border BorderThickness="0 0 0 1" BorderBrush="Black" Grid.Row="3" Grid.Column="2">
+            <Button Content="Network adapters" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
+            </Border>
+        </Grid>
+    <!--</Viewbox>-->
 </Window>
