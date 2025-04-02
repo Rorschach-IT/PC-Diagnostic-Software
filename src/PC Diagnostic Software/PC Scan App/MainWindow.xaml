@@ -3,59 +3,98 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="PC Scan App"
         ResizeMode="CanResize"
-        WindowState="Normal">
-    <!--<Viewbox>-->
-        <Grid Background="#FBF9F9" Width="auto" Height="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        WindowState="Normal"
+        Height="auto">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="12"/>
+        </Style>
 
-            <!-- Headers -->
-            <Border BorderThickness="0 1 0 1" BorderBrush="Black" Grid.Row="0" Grid.Column="0">
-                <TextBlock Text="SOFTWARE" FontWeight="Bold" FontSize="20" TextAlignment="Center" Padding="12"/>
-            </Border>
-            <Border BorderThickness="1 1 0 1" BorderBrush="Black" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
-                <TextBlock Text="HARDWARE" FontWeight="Bold" FontSize="20" TextAlignment="Center" Padding="12"/>
-            </Border>
+        <Style TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#FBF9F9"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+                        Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#e6f0e9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
-            <!-- Software Side -->
-            <Border BorderThickness="0 0 0 1" BorderBrush="Black" Grid.Row="1" Grid.Column="0">
-            <Button Content="Windows full information" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
-            </Border>
-            <Border BorderThickness="0 0 0 1" BorderBrush="Black" Grid.Row="2" Grid.Column="0">
-            <Button Content="BIOS data" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
-            </Border>
 
-            <!-- Hardware Side -->
-            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Grid.Row="1" Grid.Column="1">
-                <Button Content="Processor" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
-            </Border>
-                <Border BorderThickness="0 0 0 1" BorderBrush="Black" Grid.Row="1" Grid.Column="2">
-            <Button Content="Motherboard" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
-            </Border>
+    <Grid Background="#FBF9F9" Width="auto" Height="auto" Margin="10">
 
-            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Grid.Row="2" Grid.Column="1">
-            <Button Content="Memory" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
-            </Border>
-                <Border BorderThickness="0 0 0 1" BorderBrush="Black" Grid.Row="2" Grid.Column="2">
-            <Button Content="Storage" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
-            </Border>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Grid.Row="3" Grid.Column="1">
-            <Button Content="Graphics" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
-            </Border>
-            <Border BorderThickness="0 0 0 1" BorderBrush="Black" Grid.Row="3" Grid.Column="2">
-            <Button Content="Network adapters" Padding="10" Background="#FBF9F9" BorderThickness="0" Cursor="Hand"/>
-            </Border>
-        </Grid>
-    <!--</Viewbox>-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Headers -->
+        <Border BorderThickness="0 1 0 1" Grid.Row="0" Grid.Column="0">
+            <TextBlock Text="SOFTWARE"/>
+        </Border>
+        <Border BorderThickness="1 1 0 1" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBlock Text="HARDWARE"/>
+        </Border>
+
+        <!-- Software Side -->
+        <Border BorderThickness="0 0 0 1" Grid.Row="1" Grid.Column="0">
+            <Button Content="Windows full information"/>
+        </Border>
+        <Border BorderThickness="0 0 0 1" Grid.Row="2" Grid.Column="0">
+            <Button Content="BIOS data"/>
+        </Border>
+
+        <!-- Hardware Side -->
+        <Border BorderThickness="1 0 1 1" Grid.Row="1" Grid.Column="1">
+            <Button Content="Processor"/>
+        </Border>
+        <Border BorderThickness="0 0 0 1" Grid.Row="1" Grid.Column="2">
+            <Button Content="Motherboard"/>
+        </Border>
+
+        <Border BorderThickness="1 0 1 1" Grid.Row="2" Grid.Column="1">
+            <Button Content="Memory"/>
+        </Border>
+        <Border BorderThickness="0 0 0 1" Grid.Row="2" Grid.Column="2">
+            <Button Content="Storage"/>
+        </Border>
+
+        <Border BorderThickness="1 0 1 1" Grid.Row="3" Grid.Column="1">
+            <Button Content="Graphics"/>
+        </Border>
+        <Border BorderThickness="0 0 0 1" Grid.Row="3" Grid.Column="2">
+            <Button Content="Network adapters"/>
+        </Border>
+    </Grid>
 </Window>
