@@ -60,40 +60,40 @@
         </Grid.RowDefinitions>
 
         <!-- Headers -->
-        <Border BorderThickness="0 1 0 1" Grid.Row="0" Grid.Column="0">
+        <Border Grid.Row="0" Grid.Column="0">
             <TextBlock Text="SOFTWARE"/>
         </Border>
-        <Border BorderThickness="1 1 0 1" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+        <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
             <TextBlock Text="HARDWARE"/>
         </Border>
 
         <!-- Software Side -->
-        <Border BorderThickness="0 0 0 1" Grid.Row="1" Grid.Column="0">
+        <Border Grid.Row="1" Grid.Column="0">
             <Button Content="Windows full information"/>
         </Border>
-        <Border BorderThickness="0 0 0 1" Grid.Row="2" Grid.Column="0">
+        <Border Grid.Row="2" Grid.Column="0">
             <Button Content="BIOS data"/>
         </Border>
 
         <!-- Hardware Side -->
-        <Border BorderThickness="1 0 1 1" Grid.Row="1" Grid.Column="1">
+        <Border Grid.Row="1" Grid.Column="1">
             <Button Content="Processor"/>
         </Border>
-        <Border BorderThickness="0 0 0 1" Grid.Row="1" Grid.Column="2">
+        <Border Grid.Row="1" Grid.Column="2">
             <Button Content="Motherboard"/>
         </Border>
 
-        <Border BorderThickness="1 0 1 1" Grid.Row="2" Grid.Column="1">
+        <Border Grid.Row="2" Grid.Column="1">
             <Button Content="Memory"/>
         </Border>
-        <Border BorderThickness="0 0 0 1" Grid.Row="2" Grid.Column="2">
+        <Border Grid.Row="2" Grid.Column="2">
             <Button Content="Storage"/>
         </Border>
 
-        <Border BorderThickness="1 0 1 1" Grid.Row="3" Grid.Column="1">
+        <Border Grid.Row="3" Grid.Column="1">
             <Button Content="Graphics"/>
         </Border>
-        <Border BorderThickness="0 0 0 1" Grid.Row="3" Grid.Column="2">
+        <Border Grid.Row="3" Grid.Column="2">
             <Button Content="Network adapters"/>
         </Border>
     </Grid>
