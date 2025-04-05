@@ -5,6 +5,7 @@ namespace PC_Scan_App.Functions
 {
     public class HardwareDataFetcher
     {
+        // Method to retrieve processor information
         public static ProcessorModel GetProcessorInfo()
         {
             var processor = new ProcessorModel();
@@ -26,6 +27,7 @@ namespace PC_Scan_App.Functions
             return processor;
         }
 
+        // Method to retrieve motherboard information
         public static MotherboardModel GetMotherboardInfo()
         {
             var motherboard = new MotherboardModel();
@@ -48,6 +50,7 @@ namespace PC_Scan_App.Functions
         /*
             LIST functions 
         */
+        // Method to retrieve memory information
         public static List<MemoryModel> GetMemoryInfo()
         {
             var memoryList = new List<MemoryModel>();
@@ -71,6 +74,7 @@ namespace PC_Scan_App.Functions
             return memoryList;
         }
 
+        // Method to retrieve storage information
         public static List<StorageModel> GetStorageInfo()
         {
             var storageList = new List<StorageModel>();

@@ -6,6 +6,7 @@ namespace PC_Scan_App.Functions
 {
     public class SoftwareDataFetcher
     {
+        // Method to retrieve operating system information
         public static SystemModel GetOperatingSystemInfo()
         {
             var info = new SystemModel();
@@ -39,6 +40,7 @@ namespace PC_Scan_App.Functions
             return info;
         }
 
+        // Method to retrieve BIOS information
         public static BiosModel GetBIOSInfo()
         {
             var bios = new BiosModel();
@@ -57,17 +59,23 @@ namespace PC_Scan_App.Functions
             return bios;
         }
 
+        /*
+            Private helper methods
+        */
+        // Get registry value as integer
         private static int? GetRegistryValueAsInt(string path, string key)
         {
             var value = Registry.GetValue(path, key, null);
             return int.TryParse(value?.ToString(), out int result) ? result : (int?)null;
         }
 
+        // Get registry value as string
         private static string? GetRegistryValueAsString(string path, string key)
         {
             return Registry.GetValue(path, key, null)?.ToString();
         }
 
+        // Method to convert WMI datetime to .NET datetime
         private static string? ConvertToDateTime(string? wmiDate)
         {
             if (!string.IsNullOrWhiteSpace(wmiDate))
