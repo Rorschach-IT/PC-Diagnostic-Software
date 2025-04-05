@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
-using PC_Scan_App.Models.HardwareModel;
+﻿using PC_Scan_App.Models.HardwareModel;
+using PC_Scan_App.MVVM;
 
 namespace PC_Scan_App.ViewModels.HardwareViewModels
 {
-    public class SystemViewModel : INotifyPropertyChanged
+    public class SystemViewModel : ViewModelBase
     {
         private SystemModel _system;
         public SystemModel SystemModel
@@ -21,25 +21,9 @@ namespace PC_Scan_App.ViewModels.HardwareViewModels
             _system = new SystemModel();
         }
 
-        event PropertyChangedEventHandler? INotifyPropertyChanged.PropertyChanged
-        {
-            add
-            {
-                throw new NotImplementedException();
-            }
-
-            remove
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public void LoadSystemData()
         {
             SystemModel = Functions.SoftwareDataFetcher.GetOperatingSystemInfo();
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged(string name) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }
