@@ -1,6 +1,6 @@
 ﻿namespace PC_Scan_App.Models.SoftwareModel
 {
-    public class Motherboard
+    public class MotherboardModel
     {
         public string? Product { get; set; }
         public string? Manufacturer { get; set; }

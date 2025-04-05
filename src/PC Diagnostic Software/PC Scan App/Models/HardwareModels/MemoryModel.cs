@@ -1,6 +1,7 @@
-﻿namespace PC_Scan_App.Models.SoftwareModel
+﻿
+namespace PC_Scan_App.Models.SoftwareModel
 {
-    public class Memory
+    public class MemoryModel
     {
         public long? CapacityBytes { get; set; }
         public int? CapacityMB => CapacityBytes.HasValue ? (int)(CapacityBytes / 1024 / 1024) : null;
@@ -10,6 +11,11 @@
         public string? PartNumber { get; set; }
         public string? SerialNumber { get; set; }
         public int? FormFactor { get; set; }
+
+        public static implicit operator MemoryModel(List<MemoryModel> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

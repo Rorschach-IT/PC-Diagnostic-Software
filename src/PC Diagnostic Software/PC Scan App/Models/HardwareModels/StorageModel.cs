@@ -1,6 +1,6 @@
 ﻿namespace PC_Scan_App.Models.SoftwareModel
 {
-    public class Storage
+    public class StorageModel
     {
         public string? Id { get; set; }
         public string? Model { get; set; }
@@ -13,5 +13,4 @@
         public double? SizeGB => SizeMB.HasValue ? SizeMB / 1024.0 : null;
         public double? SizeTB => SizeGB.HasValue ? SizeGB / 1024.0 : null;
     }
-
 }

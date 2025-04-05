@@ -12,7 +12,7 @@ namespace PC_Scan_App.ViewModels.HardwareViewModels
             set
             {
                 _system = value;
-                OnPropertyChanged(nameof(System));
+                OnPropertyChanged(nameof(SystemModel));
             }
         }
 

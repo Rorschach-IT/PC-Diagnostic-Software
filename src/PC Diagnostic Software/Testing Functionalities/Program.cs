@@ -1,89 +1,48 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Management;
-using Microsoft.Win32;
 
 namespace Testing_Functionalities
 {
-    public class SystemModel
+    public class StorageModel
     {
-        public string Caption { get; set; }
-        public string Version { get; set; }
-        public int? BuildNumber { get; set; }
-        public int? UpdateBuildRevision { get; set; }
-        public string BuildBranch { get; set; }
-        public string UpdateVersion { get; set; }
-        public string Manufacturer { get; set; }
-        public string OsArchitecture { get; set; }
+        public string Id { get; set; }
+        public string Model { get; set; }
+        public string InterfaceType { get; set; }
+        public string MediaType { get; set; }
         public string SerialNumber { get; set; }
-        public string InstallDate { get; set; }
-        public string LastBootUpTime { get; set; }
-        public string FreePhysicalMemory { get; set; }
-        public string FreeVirtualMemory { get; set; }
-        public string TotalVirtualMemorySize { get; set; }
-        public string TotalVisibleMemorySize { get; set; }
+        public long? SizeBytes { get; set; }
+
+        public double? SizeKB => SizeBytes.HasValue ? SizeBytes / 1024.0 : null;
+        public double? SizeMB => SizeKB.HasValue ? SizeKB / 1024.0 : null;
+        public double? SizeGB => SizeMB.HasValue ? SizeMB / 1024.0 : null;
+        public double? SizeTB => SizeGB.HasValue ? SizeGB / 1024.0 : null;
     }
 
-    internal class SoftwareDataFetcher
+    public class HardwareDataFetcher
     {
-        public static SystemModel GetOperatingSystemInfo()
+        public static List<StorageModel> GetStorageInfo()
         {
-            var info = new SystemModel();
+            var storageList = new List<StorageModel>();
 
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem");
-            var result = searcher.Get().Cast<ManagementObject>().FirstOrDefault();
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
 
-            if (result != null)
+            foreach (ManagementObject obj in searcher.Get().Cast<ManagementObject>())
             {
-                info.Caption = result["Caption"]?.ToString();
-                info.Version = result["Version"]?.ToString();
-                info.BuildNumber = int.TryParse(result["BuildNumber"]?.ToString(), out int build) ? build : (int?)null;
+                var storage = new StorageModel
+                {
+                    Id = obj["DeviceID"]?.ToString(),
+                    Model = obj["Model"]?.ToString(),
+                    InterfaceType = obj["InterfaceType"]?.ToString(),
+                    MediaType = obj["MediaType"]?.ToString(),
+                    SerialNumber = obj["SerialNumber"]?.ToString(),
+                    SizeBytes = long.TryParse(obj["Size"]?.ToString(), out long size) ? size : (long?)null
+                };
 
-                info.UpdateBuildRevision = GetRegistryValueAsInt(@"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion", "UBR");
-                info.BuildBranch = GetRegistryValueAsString(@"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion", "BuildBranch");
-                info.UpdateVersion = GetRegistryValueAsString(@"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion", "DisplayVersion");
-
-                info.Manufacturer = result["Manufacturer"]?.ToString();
-                info.OsArchitecture = result["OSArchitecture"]?.ToString();
-                info.SerialNumber = result["SerialNumber"]?.ToString();
-
-                info.InstallDate = ConvertToDateTime(result["InstallDate"]?.ToString());
-                info.LastBootUpTime = ConvertToDateTime(result["LastBootUpTime"]?.ToString());
-
-                info.FreePhysicalMemory = result["FreePhysicalMemory"]?.ToString();
-                info.FreeVirtualMemory = result["FreeVirtualMemory"]?.ToString();
-                info.TotalVirtualMemorySize = result["TotalVirtualMemorySize"]?.ToString();
-                info.TotalVisibleMemorySize = result["TotalVisibleMemorySize"]?.ToString();
+                storageList.Add(storage);
             }
 
-            return info;
-        }
-
-        private static int? GetRegistryValueAsInt(string path, string key)
-        {
-            var value = Registry.GetValue(path, key, null);
-            return int.TryParse(value?.ToString(), out int result) ? result : (int?)null;
-        }
-
-        private static string GetRegistryValueAsString(string path, string key)
-        {
-            return Registry.GetValue(path, key, null)?.ToString();
-        }
-
-        private static string ConvertToDateTime(string wmiDate)
-        {
-            if (!string.IsNullOrWhiteSpace(wmiDate))
-            {
-                try
-                {
-                    return ManagementDateTimeConverter.ToDateTime(wmiDate).ToString();
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-            return null;
+            return storageList;
         }
     }
 
@@ -91,19 +50,50 @@ namespace Testing_Functionalities
     {
         static void Main(string[] args)
         {
-            SystemModel systemModel = SoftwareDataFetcher.GetOperatingSystemInfo();
+            /*
+                STORAGE: 
+            */
+            //foreach (var module in HardwareDataFetcher.GetStorageInfo()) // lista StorageModel
+            //{
+            //    foreach (var prop in typeof(StorageModel).GetProperties())
+            //    {
+            //        var name = prop.Name;
+            //        var value = prop.GetValue(module) ?? "null";
+            //        Console.WriteLine($"{name}: {value}");
+            //    }
 
-            // Use reflection to iterate through all properties
-            foreach (var prop in typeof(SystemModel).GetProperties())
-            {
-                var name = prop.Name;
-                var value = prop.GetValue(systemModel) ?? "null";
-                Console.WriteLine($"{name}: {value}");
-            }
+            //    Console.WriteLine(new string('-', 30)); // Separator between drives
+            //}
 
-            Console.WriteLine("\n\n");
-            Console.WriteLine(systemModel.BuildNumber);
+            /*
+                OS MEMORY:
+            */
+            //foreach (var module in memoryModules)
+            //{
+            //    foreach (var prop in typeof(MemoryModel).GetProperties())
+            //    {
+            //        var name = prop.Name;
+            //        var value = prop.GetValue(module) ?? "null";
+            //        Console.WriteLine($"{name}: {value}");
+            //    }
 
+            //    Console.WriteLine(new string('-', 30)); // Separator between modules
+            //}
+
+            /*
+                REST: 
+            */
+            //ProcessorModel processorModel = HardwareDataFetcher.GetProcessorInfo();
+
+            //foreach (var prop in typeof(ProcessorModel).GetProperties())
+            //{
+            //    var name = prop.Name;
+            //    var value = prop.GetValue(processorModel) ?? "null";
+            //    Console.WriteLine($"{name}: {value}");
+            //}
+
+
+            //Console.WriteLine("\n" + processorModel.ProcessorId);
         }
     }
 }

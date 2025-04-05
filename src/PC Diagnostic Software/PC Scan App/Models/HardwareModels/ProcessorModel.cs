@@ -1,6 +1,6 @@
 ﻿namespace PC_Scan_App.Models.SoftwareModel
 {
-    public class Processor
+    public class ProcessorModel
     {
         public string? Name { get; set; }
         public string? Manufacturer { get; set; }

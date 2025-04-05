@@ -1,12 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PC_Scan_App.Models.SoftwareModel;
+using PC_Scan_App.MVVM;
 
 namespace PC_Scan_App.ViewModels.SoftwareViewModels
 {
-    class ProcessorView
+    public class ProcessorViewModel : ViewModelBase
     {
+        private ProcessorModel _processor;
+        public ProcessorModel ProcessorModel
+        {
+            get => _processor;
+            set
+            {
+                _processor = value;
+                OnPropertyChanged(nameof(ProcessorModel));
+            }
+        }
+
+        public ProcessorViewModel()
+        {
+            _processor = new ProcessorModel();
+        }
+
+        public void LoadProcessorData()
+        {
+            ProcessorModel = Functions.HardwareDataFetcher.GetProcessorInfo();
+        }
     }
 }

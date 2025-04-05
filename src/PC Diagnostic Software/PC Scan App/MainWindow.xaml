@@ -57,6 +57,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Headers -->
@@ -90,11 +91,16 @@
             <Button Content="Storage"/>
         </Border>
 
-        <Border Grid.Row="3" Grid.Column="1">
+        <!--<Border Grid.Row="3" Grid.Column="1">
             <Button Content="Graphics"/>
         </Border>
         <Border Grid.Row="3" Grid.Column="2">
             <Button Content="Network adapters"/>
-        </Border>
+        </Border>-->
+
+        <!--Visibility = Visible => dla pojawienia się ponownie-->
+        <TextBlock Grid.Row="3" Height="auto" Visibility="Collapsed" />
+        <TextBlock Grid.Row="4" Height="auto" Visibility="Collapsed" />
+
     </Grid>
 </Window>

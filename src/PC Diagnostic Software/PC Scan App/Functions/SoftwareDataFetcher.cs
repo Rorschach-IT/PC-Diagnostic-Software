@@ -39,6 +39,24 @@ namespace PC_Scan_App.Functions
             return info;
         }
 
+        public static BiosModel GetBIOSInfo()
+        {
+            var bios = new BiosModel();
+
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");
+            var obj = searcher.Get().OfType<ManagementObject>().FirstOrDefault();
+
+            if (obj != null)
+            {
+                bios.BiosVersion = obj["Version"]?.ToString();
+                bios.Manufacturer = obj["Manufacturer"]?.ToString();
+                bios.ReleaseDate = ConvertToDateTime(obj["ReleaseDate"]?.ToString());
+                bios.SerialNumber = obj["SerialNumber"]?.ToString();
+            }
+
+            return bios;
+        }
+
         private static int? GetRegistryValueAsInt(string path, string key)
         {
             var value = Registry.GetValue(path, key, null);
