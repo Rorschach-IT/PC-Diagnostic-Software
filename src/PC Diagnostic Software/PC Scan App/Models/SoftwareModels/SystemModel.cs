@@ -1,6 +1,6 @@
 ﻿namespace PC_Scan_App.Models.HardwareModel
 {
-    public class SystemInfo
+    public class SystemModel
     {
         public string? Caption { get; set; }
         public string? Version { get; set; }

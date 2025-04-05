@@ -1,30 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Management;
+﻿using System.Management;
 using Microsoft.Win32;
+using PC_Scan_App.Models.HardwareModel;
 
-namespace Testing_Functionalities
+namespace PC_Scan_App.Functions
 {
-    public class SystemModel
-    {
-        public string Caption { get; set; }
-        public string Version { get; set; }
-        public int? BuildNumber { get; set; }
-        public int? UpdateBuildRevision { get; set; }
-        public string BuildBranch { get; set; }
-        public string UpdateVersion { get; set; }
-        public string Manufacturer { get; set; }
-        public string OsArchitecture { get; set; }
-        public string SerialNumber { get; set; }
-        public string InstallDate { get; set; }
-        public string LastBootUpTime { get; set; }
-        public string FreePhysicalMemory { get; set; }
-        public string FreeVirtualMemory { get; set; }
-        public string TotalVirtualMemorySize { get; set; }
-        public string TotalVisibleMemorySize { get; set; }
-    }
-
-    internal class SoftwareDataFetcher
+    public class SoftwareDataFetcher
     {
         public static SystemModel GetOperatingSystemInfo()
         {
@@ -65,12 +45,12 @@ namespace Testing_Functionalities
             return int.TryParse(value?.ToString(), out int result) ? result : (int?)null;
         }
 
-        private static string GetRegistryValueAsString(string path, string key)
+        private static string? GetRegistryValueAsString(string path, string key)
         {
             return Registry.GetValue(path, key, null)?.ToString();
         }
 
-        private static string ConvertToDateTime(string wmiDate)
+        private static string? ConvertToDateTime(string? wmiDate)
         {
             if (!string.IsNullOrWhiteSpace(wmiDate))
             {
@@ -84,26 +64,6 @@ namespace Testing_Functionalities
                 }
             }
             return null;
-        }
-    }
-
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            SystemModel systemModel = SoftwareDataFetcher.GetOperatingSystemInfo();
-
-            // Use reflection to iterate through all properties
-            foreach (var prop in typeof(SystemModel).GetProperties())
-            {
-                var name = prop.Name;
-                var value = prop.GetValue(systemModel) ?? "null";
-                Console.WriteLine($"{name}: {value}");
-            }
-
-            Console.WriteLine("\n\n");
-            Console.WriteLine(systemModel.BuildNumber);
-
         }
     }
 }
