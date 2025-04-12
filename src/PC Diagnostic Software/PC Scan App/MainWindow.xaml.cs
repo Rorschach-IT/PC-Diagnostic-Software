@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using PC_Scan_App.ViewModels;
 
 namespace PC_Scan_App
 {
@@ -7,6 +8,13 @@ namespace PC_Scan_App
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InformationHeader.Visibility = Visibility.Visible;
+            InformationDisplay.Visibility = Visibility.Visible;
         }
     }
 }
