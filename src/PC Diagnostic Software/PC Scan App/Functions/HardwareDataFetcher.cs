@@ -1,4 +1,5 @@
 ﻿using System.Management;
+using PC_Scan_App.Models.HardwareModels;
 using PC_Scan_App.Models.SoftwareModel;
 
 namespace PC_Scan_App.Functions
@@ -97,6 +98,35 @@ namespace PC_Scan_App.Functions
             }
 
             return storageList;
+        }
+
+        public static List<GraphicsCardModel> GetGraphicsCardInfo()
+        {
+            var graphicsCards = new List<GraphicsCardModel>();
+            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
+
+            foreach (ManagementObject obj in searcher.Get().Cast<ManagementObject>())
+            {
+                var gpu = new GraphicsCardModel
+                {
+                    Name = obj["Name"]?.ToString(),
+                    Description = obj["Description"]?.ToString(),
+                    Manufacturer = obj["AdapterCompatibility"]?.ToString(),
+                    DriverVersion = obj["DriverVersion"]?.ToString(),
+                    VideoProcessor = obj["VideoProcessor"]?.ToString(),
+                    AdapterRAM = ulong.TryParse(obj["AdapterRAM"]?.ToString(), out var ram) ? ram : null,
+                    VideoModeDescription = obj["VideoModeDescription"]?.ToString(),
+                    CurrentRefreshRate = int.TryParse(obj["CurrentRefreshRate"]?.ToString(), out var refresh) ? refresh : null,
+                    HorizontalResolution = int.TryParse(obj["CurrentHorizontalResolution"]?.ToString(), out var hRes) ? hRes : null,
+                    VerticalResolution = int.TryParse(obj["CurrentVerticalResolution"]?.ToString(), out var vRes) ? vRes : null,
+                    InstalledDisplayDrivers = obj["InstalledDisplayDrivers"]?.ToString(),
+                    Status = obj["Status"]?.ToString()
+                };
+
+                graphicsCards.Add(gpu);
+            }
+
+            return graphicsCards;
         }
     }
 }

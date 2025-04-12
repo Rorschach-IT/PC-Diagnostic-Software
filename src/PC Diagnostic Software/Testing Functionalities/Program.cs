@@ -1,99 +1,186 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Management;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Testing_Functionalities
 {
-    public class StorageModel
+    public class NetworkAdapterModel
     {
-        public string Id { get; set; }
-        public string Model { get; set; }
-        public string InterfaceType { get; set; }
-        public string MediaType { get; set; }
-        public string SerialNumber { get; set; }
-        public long? SizeBytes { get; set; }
-
-        public double? SizeKB => SizeBytes.HasValue ? SizeBytes / 1024.0 : null;
-        public double? SizeMB => SizeKB.HasValue ? SizeKB / 1024.0 : null;
-        public double? SizeGB => SizeMB.HasValue ? SizeMB / 1024.0 : null;
-        public double? SizeTB => SizeGB.HasValue ? SizeGB / 1024.0 : null;
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string MACAddress { get; set; }
+        public string AdapterType { get; set; }
+        public bool? NetEnabled { get; set; }
+        public string Manufacturer { get; set; }
+        public string Speed { get; set; }
+        public string IPAddress { get; set; }
+        public string IPSubnet { get; set; }
+        public string DefaultGateway { get; set; }
+        public string DHCPServer { get; set; }
+        public bool DHCPEnabled { get; set; }
     }
+
 
     public class HardwareDataFetcher
     {
-        public static List<StorageModel> GetStorageInfo()
+        public static List<NetworkAdapterModel> GetNetworkAdapters()
         {
-            var storageList = new List<StorageModel>();
+            var adapters = new List<NetworkAdapterModel>();
 
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
-
-            foreach (ManagementObject obj in searcher.Get().Cast<ManagementObject>())
+            try
             {
-                var storage = new StorageModel
-                {
-                    Id = obj["DeviceID"]?.ToString(),
-                    Model = obj["Model"]?.ToString(),
-                    InterfaceType = obj["InterfaceType"]?.ToString(),
-                    MediaType = obj["MediaType"]?.ToString(),
-                    SerialNumber = obj["SerialNumber"]?.ToString(),
-                    SizeBytes = long.TryParse(obj["Size"]?.ToString(), out long size) ? size : (long?)null
-                };
+                // Run the 'ipconfig /all' command
+                Process process = new Process();
+                process.StartInfo.FileName = "cmd.exe";
+                process.StartInfo.Arguments = "/C ipconfig /all";
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.Start();
 
-                storageList.Add(storage);
+                string output = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+
+                // Split the output by lines and process each line
+                var lines = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                NetworkAdapterModel currentAdapter = null;
+
+                foreach (var line in lines)
+                {
+                    // Detect the start of a new network adapter section
+                    if (line.StartsWith("Ethernet adapter") || line.StartsWith("Wireless LAN adapter"))
+                    {
+                        if (currentAdapter != null)
+                        {
+                            adapters.Add(currentAdapter); // Add the previous adapter
+                        }
+
+                        currentAdapter = new NetworkAdapterModel
+                        {
+                            Name = line.Split(':')[0].Trim()
+                        };
+                    }
+
+                    // Ensure that currentAdapter is not null before trying to assign values
+                    if (currentAdapter != null)
+                    {
+                        // Parsing fields for IP configuration
+                        if (line.Contains("Description"))
+                        {
+                            currentAdapter.Description = line.Split(':')[1].Trim();
+                        }
+                        else if (line.Contains("Physical")) // MAC address
+                        {
+                            currentAdapter.MACAddress = line.Split(':')[1].Trim();
+                        }
+                        else if (line.Contains("IP Address"))
+                        {
+                            currentAdapter.IPAddress = line.Split(':')[1].Trim();
+                        }
+                        else if (line.Contains("Subnet Mask"))
+                        {
+                            currentAdapter.IPSubnet = line.Split(':')[1].Trim();
+                        }
+                        else if (line.Contains("Default Gateway"))
+                        {
+                            currentAdapter.DefaultGateway = line.Split(':')[1].Trim();
+                        }
+                        else if (line.Contains("DHCP Server"))
+                        {
+                            currentAdapter.DHCPServer = line.Split(':')[1].Trim();
+                        }
+                        else if (line.Contains("DHCP Enabled"))
+                        {
+                            currentAdapter.DHCPEnabled = line.Split(':')[1].Trim() == "Yes";
+                        }
+                        else if (line.Contains("Adapter Type"))
+                        {
+                            currentAdapter.AdapterType = line.Split(':')[1].Trim();
+                        }
+                        else if (line.Contains("Speed"))
+                        {
+                            currentAdapter.Speed = line.Split(':')[1].Trim();
+                        }
+                    }
+                }
+
+                // Add the last adapter if it's not null
+                if (currentAdapter != null)
+                {
+                    adapters.Add(currentAdapter);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching adapters: {ex.Message}");
             }
 
-            return storageList;
+            return adapters;
         }
-    }
 
-    internal class Program
-    {
-        static void Main(string[] args)
+        internal class Program
         {
-            /*
-                STORAGE: 
-            */
-            //foreach (var module in HardwareDataFetcher.GetStorageInfo()) // lista StorageModel
-            //{
-            //    foreach (var prop in typeof(StorageModel).GetProperties())
-            //    {
-            //        var name = prop.Name;
-            //        var value = prop.GetValue(module) ?? "null";
-            //        Console.WriteLine($"{name}: {value}");
-            //    }
+            static void Main(string[] args)
+            {
+                foreach (var module in HardwareDataFetcher.GetNetworkAdapters())
+                {
+                    foreach (var prop in typeof(NetworkAdapterModel).GetProperties())
+                    {
+                        var name = prop.Name;
+                        var value = prop.GetValue(module) ?? "null";
+                        Console.WriteLine($"{name}: {value}");
 
-            //    Console.WriteLine(new string('-', 30)); // Separator between drives
-            //}
+                    }
+                }
 
-            /*
-                OS MEMORY:
-            */
-            //foreach (var module in memoryModules)
-            //{
-            //    foreach (var prop in typeof(MemoryModel).GetProperties())
-            //    {
-            //        var name = prop.Name;
-            //        var value = prop.GetValue(module) ?? "null";
-            //        Console.WriteLine($"{name}: {value}");
-            //    }
+                Console.WriteLine("Press any key to continue ...");
+                Console.ReadLine();
 
-            //    Console.WriteLine(new string('-', 30)); // Separator between modules
-            //}
+                /*
+                    STORAGE: 
+                */
+                //foreach (var module in HardwareDataFetcher.GetStorageInfo()) // lista StorageModel
+                //{
+                //    foreach (var prop in typeof(StorageModel).GetProperties())
+                //    {
+                //        var name = prop.Name;
+                //        var value = prop.GetValue(module) ?? "null";
+                //        Console.WriteLine($"{name}: {value}");
+                //    }
 
-            /*
-                REST: 
-            */
-            //ProcessorModel processorModel = HardwareDataFetcher.GetProcessorInfo();
+                //    Console.WriteLine(new string('-', 30)); // Separator between drives
+                //}
 
-            //foreach (var prop in typeof(ProcessorModel).GetProperties())
-            //{
-            //    var name = prop.Name;
-            //    var value = prop.GetValue(processorModel) ?? "null";
-            //    Console.WriteLine($"{name}: {value}");
-            //}
+                /*
+                    OS MEMORY:
+                */
+                //foreach (var module in memoryModules)
+                //{
+                //    foreach (var prop in typeof(MemoryModel).GetProperties())
+                //    {
+                //        var name = prop.Name;
+                //        var value = prop.GetValue(module) ?? "null";
+                //        Console.WriteLine($"{name}: {value}");
+                //    }
+
+                //    Console.WriteLine(new string('-', 30)); // Separator between modules
+                //}
+
+                /*
+                    REST: 
+                */
+                //ProcessorModel processorModel = HardwareDataFetcher.GetProcessorInfo();
+
+                //foreach (var prop in typeof(ProcessorModel).GetProperties())
+                //{
+                //    var name = prop.Name;
+                //    var value = prop.GetValue(processorModel) ?? "null";
+                //    Console.WriteLine($"{name}: {value}");
+                //}
 
 
-            //Console.WriteLine("\n" + processorModel.ProcessorId);
+                //Console.WriteLine("\n" + processorModel.ProcessorId);
+            }
         }
     }
 }
