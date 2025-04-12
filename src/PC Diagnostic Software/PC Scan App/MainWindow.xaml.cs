@@ -8,10 +8,12 @@ namespace PC_Scan_App
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+
+            // Set the DataContext for the window to the MainViewModel
+            this.DataContext = new MainViewModel();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void showContent(object sender, RoutedEventArgs e)
         {
             InformationHeader.Visibility = Visibility.Visible;
             InformationDisplay.Visibility = Visibility.Visible;

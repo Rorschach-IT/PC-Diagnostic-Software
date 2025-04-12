@@ -1,29 +1,35 @@
-﻿using PC_Scan_App.Models.SoftwareModel;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using PC_Scan_App.MVVM;
 
 namespace PC_Scan_App.ViewModels.SoftwareViewModels
 {
     public class MotherboardViewModel : ViewModelBase
     {
-        private MotherboardModel _motherboard;
-        public MotherboardModel MotherboardModel
+        private ObservableCollection<KeyValuePair<string, string>> _motherboard;
+
+        public ObservableCollection<KeyValuePair<string, string>> Motherboard
         {
             get => _motherboard;
             set
             {
                 _motherboard = value;
-                OnPropertyChanged(nameof(MotherboardModel));
+                OnPropertyChanged(nameof(Motherboard));
             }
         }
 
-        public MotherboardViewModel()
+        // Assuming MainViewModel is passed in through the constructor
+        private readonly MainViewModel _mainViewModel;
+
+        public MotherboardViewModel(MainViewModel mainViewModel)
         {
-            _motherboard = new MotherboardModel();
+            _mainViewModel = mainViewModel;
+            _motherboard = _mainViewModel.Motherboard; // Bind to Motherboard data from MainViewModel
+
+            // Trigger data loading manually if needed
+            ShowMotherboardInfo = new RelayCommand(_ => _mainViewModel.LoadMotherboardData());
         }
 
-        public void LoadMotherboardData()
-        {
-            MotherboardModel = Functions.HardwareDataFetcher.GetMotherboardInfo();
-        }
+        public ICommand ShowMotherboardInfo { get; }
     }
 }

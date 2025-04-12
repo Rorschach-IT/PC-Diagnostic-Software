@@ -1,29 +1,35 @@
-﻿using PC_Scan_App.Models.SoftwareModel;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using PC_Scan_App.MVVM;
 
 namespace PC_Scan_App.ViewModels.SoftwareViewModels
 {
     public class MemoryViewModel : ViewModelBase
     {
-        private List<MemoryModel> _memory;
-        public List<MemoryModel> MemoryModel
+        private ObservableCollection<KeyValuePair<string, string>> _memory;
+
+        public ObservableCollection<KeyValuePair<string, string>> Memory
         {
             get => _memory;
             set
             {
                 _memory = value;
-                OnPropertyChanged(nameof(MemoryModel));
+                OnPropertyChanged(nameof(Memory));
             }
         }
 
-        public MemoryViewModel()
+        // Assuming MainViewModel is passed in through the constructor
+        private readonly MainViewModel _mainViewModel;
+
+        public MemoryViewModel(MainViewModel mainViewModel)
         {
-            _memory = [];
+            _mainViewModel = mainViewModel;
+            _memory = _mainViewModel.Memory;  // Bind to Memory data from MainViewModel
+
+            // Trigger data loading manually if needed
+            ShowMemoryInfo = new RelayCommand(_ => _mainViewModel.LoadMemoryData());
         }
 
-        public void LoadMemoryData()
-        {
-            MemoryModel = Functions.HardwareDataFetcher.GetMemoryInfo();
-        }
+        public ICommand ShowMemoryInfo { get; }
     }
 }

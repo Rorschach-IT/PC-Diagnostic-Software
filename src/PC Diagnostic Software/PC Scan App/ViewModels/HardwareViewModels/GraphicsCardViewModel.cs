@@ -1,28 +1,35 @@
-﻿using PC_Scan_App.Models.HardwareModels;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using PC_Scan_App.MVVM;
 
 namespace PC_Scan_App.ViewModels.HardwareViewModels
 {
     public class GraphicsCardViewModel : ViewModelBase
     {
-        private List<GraphicsCardModel> _graphicsCard;
-        public List<GraphicsCardModel> GraphicsCardModel
+        private ObservableCollection<KeyValuePair<string, string>> _graphicsCards;
+
+        public ObservableCollection<KeyValuePair<string, string>> GraphicsCards
         {
-            get => _graphicsCard;
+            get => _graphicsCards;
             set
             {
-                _graphicsCard = value;
-                OnPropertyChanged(nameof(GraphicsCardModel));
+                _graphicsCards = value;
+                OnPropertyChanged(nameof(GraphicsCards));
             }
         }
 
-        public GraphicsCardViewModel()
+        // Assuming MainViewModel is passed in through the constructor
+        private readonly MainViewModel _mainViewModel;
+
+        public GraphicsCardViewModel(MainViewModel mainViewModel)
         {
-            _graphicsCard = [];
+            _mainViewModel = mainViewModel;
+            _graphicsCards = _mainViewModel.GraphicsCards; // Bind to GraphicsCards data from MainViewModel
+
+            // Trigger data loading manually if needed
+            ShowGraphicsCardInfo = new RelayCommand(_ => _mainViewModel.LoadGraphicsCardData());
         }
-        public void LoadGraphicsCardData()
-        {
-            GraphicsCardModel = Functions.HardwareDataFetcher.GetGraphicsCardInfo();
-        }
+
+        public ICommand ShowGraphicsCardInfo { get; }
     }
 }

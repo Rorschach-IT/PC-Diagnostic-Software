@@ -1,29 +1,33 @@
-﻿using PC_Scan_App.Models.HardwareModel;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using PC_Scan_App.MVVM;
 
 namespace PC_Scan_App.ViewModels.HardwareViewModels
 {
     public class BiosViewModel : ViewModelBase
     {
-        private BiosModel _bios;
-        public BiosModel BiosModel
+        private ObservableCollection<KeyValuePair<string, string>> _bios;
+
+        public ObservableCollection<KeyValuePair<string, string>> Bios
         {
             get => _bios;
             set
             {
                 _bios = value;
-                OnPropertyChanged(nameof(BiosModel));
+                OnPropertyChanged(nameof(Bios));
             }
         }
 
-        public BiosViewModel()
+        private readonly MainViewModel _mainViewModel;
+
+        public BiosViewModel(MainViewModel mainViewModel)
         {
-            _bios = new BiosViewModel();
+            _mainViewModel = mainViewModel;
+            _bios = _mainViewModel.Bios; // Bind to the Bios data from MainViewModel
+
+            ShowBiosInfo = new RelayCommand(_ => _mainViewModel.LoadBiosData()); // Trigger data loading in MainViewModel
         }
 
-        public void LoadBiosData()
-        {
-            BiosModel = Functions.SoftwareDataFetcher.GetBIOSInfo();
-        }
+        public ICommand ShowBiosInfo { get; }
     }
 }

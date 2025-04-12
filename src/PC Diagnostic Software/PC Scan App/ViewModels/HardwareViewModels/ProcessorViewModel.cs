@@ -1,29 +1,35 @@
-﻿using PC_Scan_App.Models.SoftwareModel;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using PC_Scan_App.MVVM;
 
 namespace PC_Scan_App.ViewModels.SoftwareViewModels
 {
     public class ProcessorViewModel : ViewModelBase
     {
-        private ProcessorModel _processor;
-        public ProcessorModel ProcessorModel
+        private ObservableCollection<KeyValuePair<string, string>> _processor;
+
+        public ObservableCollection<KeyValuePair<string, string>> Processor
         {
             get => _processor;
             set
             {
                 _processor = value;
-                OnPropertyChanged(nameof(ProcessorModel));
+                OnPropertyChanged(nameof(Processor));
             }
         }
 
-        public ProcessorViewModel()
+        // Assuming the MainViewModel instance is passed via constructor (or you can use DI)
+        private readonly MainViewModel _mainViewModel;
+
+        public ProcessorViewModel(MainViewModel mainViewModel)
         {
-            _processor = new ProcessorModel();
+            _mainViewModel = mainViewModel;
+            _processor = _mainViewModel.Processor;  // Bind to Processor data from MainViewModel
+
+            // If you need to trigger data loading manually
+            ShowProcessorInfo = new RelayCommand(_ => _mainViewModel.LoadProcessorData());
         }
 
-        public void LoadProcessorData()
-        {
-            ProcessorModel = Functions.HardwareDataFetcher.GetProcessorInfo();
-        }
+        public ICommand ShowProcessorInfo { get; }
     }
 }
