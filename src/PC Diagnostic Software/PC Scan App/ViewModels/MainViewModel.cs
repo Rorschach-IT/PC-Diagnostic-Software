@@ -181,6 +181,12 @@ namespace PC_Scan_App.ViewModels
 
             for (int i = 0; i < modules.Count; i++)
             {
+                // Add a separator (if there is more than one module)
+                if (i > 0)
+                {
+                    Memory.Add(new KeyValuePair<string, string>("", ""));
+                }
+
                 var mem = modules[i];
 
                 Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Capacity (GB):", mem.CapacityGB?.ToString() ?? "N/A"));
@@ -192,8 +198,6 @@ namespace PC_Scan_App.ViewModels
                 Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Part Number:", mem.PartNumber ?? "N/A"));
                 Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Serial Number:", mem.SerialNumber ?? "N/A"));
                 Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Form Factor:", mem.FormFactor?.ToString() ?? "N/A"));
-
-                Memory.Add(new KeyValuePair<string, string>("", "")); // separator (if more than one module)
             }
 
             LoadAndBindData(Memory);
@@ -214,6 +218,12 @@ namespace PC_Scan_App.ViewModels
             {
                 var disk = drives[i];
 
+                // Add a separator (if there is more than one drive)
+                if (i > 0)
+                {
+                    Storage.Add(new KeyValuePair<string, string>("", ""));
+                }
+
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Size (TB):", disk.SizeTB?.ToString("0.##") ?? "N/A"));
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Size (GB):", disk.SizeGB?.ToString("0.##") ?? "N/A"));
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Size (MB):", disk.SizeMB?.ToString("0.##") ?? "N/A"));
@@ -225,8 +235,6 @@ namespace PC_Scan_App.ViewModels
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Interface:", disk.InterfaceType ?? "N/A"));
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Media Type:", disk.MediaType ?? "N/A"));
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Serial Number:", disk.SerialNumber ?? "N/A"));
-
-                Storage.Add(new KeyValuePair<string, string>("", "")); // separator (if more than one drive)
             }
 
             LoadAndBindData(Storage);
@@ -247,6 +255,12 @@ namespace PC_Scan_App.ViewModels
             {
                 var gpu = graphicsCards[i];
 
+                // Add a separator (if there is more than one GPU)
+                if (i > 0)
+                {
+                    GraphicsCards.Add(new KeyValuePair<string, string>("", ""));
+                }
+
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Name:", gpu.Name ?? "N/A"));
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Manufacturer:", gpu.Manufacturer ?? "N/A"));
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Description:", gpu.Description ?? "N/A"));
@@ -254,7 +268,6 @@ namespace PC_Scan_App.ViewModels
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Video Processor:", gpu.VideoProcessor ?? "N/A"));
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Adapter RAM (MB):", gpu.AdapterRAM.HasValue ? (gpu.AdapterRAM.Value / (1024 * 1024)).ToString() : "N/A"));
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Status:", gpu.Status ?? "N/A"));
-                GraphicsCards.Add(new KeyValuePair<string, string>("", "")); // separator (if more than one GPU)
             }
 
             LoadAndBindData(GraphicsCards);

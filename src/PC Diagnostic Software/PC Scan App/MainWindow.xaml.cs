@@ -2,6 +2,7 @@
 
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using PC_Scan_App.ViewModels;
 
 namespace PC_Scan_App
@@ -29,6 +30,18 @@ namespace PC_Scan_App
                 contextMenu.PlacementTarget is TextBox textBox)
             {
                 Clipboard.SetText(textBox.Text);
+            }
+        }
+
+        // Method to scroll the list (no default WPF scroll)
+        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer? scrollViewer = sender as ScrollViewer;
+
+            if (scrollViewer != null)
+            {
+                scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta);
+                e.Handled = true;
             }
         }
     }

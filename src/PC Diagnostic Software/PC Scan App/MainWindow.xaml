@@ -128,7 +128,8 @@
         </Border>
 
         <!-- Information Display -->
-        <ScrollViewer Name="InformationDisplay" 
+        <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+                      Name="InformationDisplay" 
                       Grid.Row="5" Grid.Column="0" 
                       Grid.ColumnSpan="3"
                       Padding="10" 
