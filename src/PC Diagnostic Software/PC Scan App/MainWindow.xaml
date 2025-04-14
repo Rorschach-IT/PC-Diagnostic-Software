@@ -5,8 +5,10 @@
         ResizeMode="CanResize"
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
-        Height="auto"
-        Width="auto">
+        SizeToContent="Height"
+        Width="Auto"
+        MaxWidth="1000"
+        MaxHeight="800">
 
     <Window.Resources>
         <Style TargetType="TextBlock">
@@ -43,12 +45,18 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
     </Window.Resources>
 
-    <Grid Background="#FBF9F9" Margin="10">
+    <Grid Background="#FBF9F9" Margin="10" Height="auto">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -72,59 +80,80 @@
 
         <!-- Software Side -->
         <Border Grid.Row="1" Grid.Column="0">
-            <Button Content="Windows full information" Command="{Binding ShowWindowsInfo}" Click="showContent"/>
+            <Button Content="Windows full information" Command="{Binding ShowWindowsInfo}" Click="ShowContent"/>
         </Border>
         <Border Grid.Row="2" Grid.Column="0">
-            <Button Content="BIOS data" Command="{Binding ShowBiosInfo}"/>
+            <Button Content="BIOS data" Command="{Binding ShowBiosInfo}" Click="ShowContent"/>
         </Border>
 
         <!-- Hardware Side -->
         <Border Grid.Row="1" Grid.Column="1">
-            <Button Content="Processor" Command="{Binding ShowProcessorInfo}"/>
+            <Button Content="Processor" Command="{Binding ShowProcessorInfo}" Click="ShowContent"/>
         </Border>
         <Border Grid.Row="1" Grid.Column="2">
-            <Button Content="Motherboard" Command="{Binding ShowMotherboardInfo}"/>
+            <Button Content="Motherboard" Command="{Binding ShowMotherboardInfo}" Click="ShowContent"/>
         </Border>
 
         <Border Grid.Row="2" Grid.Column="1">
-            <Button Content="Memory" Command="{Binding ShowMemoryInfo}"/>
+            <Button Content="Memory" Command="{Binding ShowMemoryInfo}" Click="ShowContent"/>
         </Border>
         <Border Grid.Row="2" Grid.Column="2">
-            <Button Content="Storage" Command="{Binding ShowStorageInfo}"/>
+            <Button Content="Storage" Command="{Binding ShowStorageInfo}" Click="ShowContent"/>
         </Border>
 
         <Border Grid.Row="3" Grid.Column="1">
-            <Button Content="Graphics" Command="{Binding ShowGraphicsCardInfo}"/>
+            <Button Content="Graphics" Command="{Binding ShowGraphicsCardInfo}" Click="ShowContent"/>
         </Border>
 
         <!-- Information Header -->
-        <Border Name="InformationHeader" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Visibility="Collapsed">
+        <Border Name="InformationHeader" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Visibility="Collapsed" Margin="0 10 0 0">
             <TextBlock Text="{Binding SectionHeader}" FontSize="20"/>
         </Border>
 
         <!-- Information Display -->
-        <ScrollViewer Name="InformationDisplay" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Height="400"
-              HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
-            <ListView ItemsSource="{Binding CurrentData}" SelectionMode="Single" IsHitTestVisible="False" FontSize="18">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontWeight="Bold" Text="{Binding Key}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Value}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+        <ScrollViewer Name="InformationDisplay" 
+                      Grid.Row="5" Grid.Column="0" 
+                      Grid.ColumnSpan="3"
+                      Padding="10" 
+                      Margin="10" 
+                      MaxHeight="300"
+                      HorizontalScrollBarVisibility="Auto" 
+                      VerticalScrollBarVisibility="Auto"
+                      Visibility="Collapsed">
+            <Border BorderBrush="Black" BorderThickness="0.7">
+                <ListView ItemsSource="{Binding CurrentData}" SelectionMode="Single" FontSize="18" Padding="20">
+                    <ListView.Resources>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView>
+                            
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox FontWeight="Bold" Text="{Binding Key, Mode=OneWay}" Width="300"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Value, Mode=OneWay}">
+                                            <TextBox.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="Copy" Click="CopyValue_Click"/>
+                                                </ContextMenu>
+                                            </TextBox.ContextMenu>
+                                        </TextBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
         </ScrollViewer>
     </Grid>
 </Window>

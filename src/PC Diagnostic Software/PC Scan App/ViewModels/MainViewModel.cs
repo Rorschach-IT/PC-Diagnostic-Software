@@ -22,26 +22,26 @@ namespace PC_Scan_App.ViewModels
             set { _currentData = value; OnPropertyChanged(nameof(CurrentData)); }
         }
 
+        public ICommand ShowWindowsInfo { get; }
+        public ICommand ShowBiosInfo { get; }
         public ICommand ShowProcessorInfo { get; }
         public ICommand ShowMotherboardInfo { get; }
         public ICommand ShowMemoryInfo { get; }
         public ICommand ShowStorageInfo { get; }
         public ICommand ShowGraphicsCardInfo { get; }
-        public ICommand ShowWindowsInfo { get; }
-        public ICommand ShowBiosInfo { get; }
 
         public MainViewModel()
         {
-            Processor = new ObservableCollection<KeyValuePair<string, string>>();
-            Motherboard = new ObservableCollection<KeyValuePair<string, string>>();
-            Memory = new ObservableCollection<KeyValuePair<string, string>>();
-            Storage = new ObservableCollection<KeyValuePair<string, string>>();
-            GraphicsCards = new ObservableCollection<KeyValuePair<string, string>>();
-            System = new ObservableCollection<KeyValuePair<string, string>>();
-            Bios = new ObservableCollection<KeyValuePair<string, string>>();
+            Processor = [];
+            Motherboard = [];
+            Memory = [];
+            Storage = [];
+            GraphicsCards = [];
+            System = [];
+            Bios = [];
 
             // Initialize CurrentData to avoid null reference
-            CurrentData = new ObservableCollection<KeyValuePair<string, string>>();
+            CurrentData = [];
 
             ShowProcessorInfo = new RelayCommand(_ => LoadProcessorData());
             ShowMotherboardInfo = new RelayCommand(_ => LoadMotherboardData());
@@ -170,14 +170,20 @@ namespace PC_Scan_App.ViewModels
             for (int i = 0; i < modules.Count; i++)
             {
                 var mem = modules[i];
-                Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Capacity (GB):", mem.CapacityBytes.HasValue ? (mem.CapacityBytes.Value / (1024 * 1024 * 1024)).ToString() : "N/A"));
+
+                Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Capacity (GB):", mem.CapacityGB?.ToString() ?? "N/A"));
+                Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Capacity (MB):", mem.CapacityMB?.ToString() ?? "N/A"));
+                Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Capacity (Bytes):", mem.CapacityBytes?.ToString() ?? "N/A"));
+
                 Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Speed:", mem.Speed?.ToString() ?? "N/A"));
                 Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Manufacturer:", mem.Manufacturer ?? "N/A"));
                 Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Part Number:", mem.PartNumber ?? "N/A"));
                 Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Serial Number:", mem.SerialNumber ?? "N/A"));
                 Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Form Factor:", mem.FormFactor?.ToString() ?? "N/A"));
+
                 Memory.Add(new KeyValuePair<string, string>("", "")); // Separator
             }
+
 
             LoadAndBindData(Memory);
             Memory.Clear();
@@ -195,14 +201,22 @@ namespace PC_Scan_App.ViewModels
             for (int i = 0; i < drives.Count; i++)
             {
                 var disk = drives[i];
+
+                Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Size (TB):", disk.SizeTB?.ToString("0.##") ?? "N/A"));
+                Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Size (GB):", disk.SizeGB?.ToString("0.##") ?? "N/A"));
+                Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Size (MB):", disk.SizeMB?.ToString("0.##") ?? "N/A"));
+                Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Size (KB):", disk.SizeKB?.ToString("0.##") ?? "N/A"));
+                Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Size (Bytes):", disk.SizeBytes?.ToString() ?? "N/A"));
+
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Model:", disk.Model ?? "N/A"));
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - ID:", disk.Id ?? "N/A"));
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Interface:", disk.InterfaceType ?? "N/A"));
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Media Type:", disk.MediaType ?? "N/A"));
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Serial Number:", disk.SerialNumber ?? "N/A"));
-                Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Size (GB):", disk.SizeBytes.HasValue ? (disk.SizeBytes.Value / (1024 * 1024 * 1024)).ToString() : "N/A"));
+
                 Storage.Add(new KeyValuePair<string, string>("", "")); // separator
             }
+
 
             LoadAndBindData(Storage);
             Storage.Clear();
