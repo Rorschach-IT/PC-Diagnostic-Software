@@ -27,13 +27,13 @@
             <Setter Property="Margin" Value="10"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
+                <!-- Dissabling default WPF button hoover -->
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border 
-                        Background="{TemplateBinding Background}" 
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        Padding="{TemplateBinding Padding}">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -54,7 +54,6 @@
     </Window.Resources>
 
     <Grid Background="#FBF9F9" Margin="10" Height="auto">
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*" />
@@ -80,33 +79,51 @@
 
         <!-- Software Side -->
         <Border Grid.Row="1" Grid.Column="0">
-            <Button Content="Windows full information" Command="{Binding ShowWindowsInfo}" Click="ShowContent"/>
+            <Button Content="Windows full information" 
+                    Command="{Binding ShowWindowsInfo}" 
+                    Click="ShowContent"/>
         </Border>
         <Border Grid.Row="2" Grid.Column="0">
-            <Button Content="BIOS data" Command="{Binding ShowBiosInfo}" Click="ShowContent"/>
+            <Button Content="BIOS data" 
+                    Command="{Binding ShowBiosInfo}" 
+                    Click="ShowContent"/>
         </Border>
 
         <!-- Hardware Side -->
         <Border Grid.Row="1" Grid.Column="1">
-            <Button Content="Processor" Command="{Binding ShowProcessorInfo}" Click="ShowContent"/>
+            <Button Content="Processor" 
+                    Command="{Binding ShowProcessorInfo}" 
+                    Click="ShowContent"/>
         </Border>
         <Border Grid.Row="1" Grid.Column="2">
-            <Button Content="Motherboard" Command="{Binding ShowMotherboardInfo}" Click="ShowContent"/>
+            <Button Content="Motherboard" 
+                    Command="{Binding ShowMotherboardInfo}" 
+                    Click="ShowContent"/>
         </Border>
 
         <Border Grid.Row="2" Grid.Column="1">
-            <Button Content="Memory" Command="{Binding ShowMemoryInfo}" Click="ShowContent"/>
+            <Button Content="Memory" 
+                    Command="{Binding ShowMemoryInfo}" 
+                    Click="ShowContent"/>
         </Border>
         <Border Grid.Row="2" Grid.Column="2">
-            <Button Content="Storage" Command="{Binding ShowStorageInfo}" Click="ShowContent"/>
+            <Button Content="Storage" 
+                    Command="{Binding ShowStorageInfo}" 
+                    Click="ShowContent"/>
         </Border>
 
         <Border Grid.Row="3" Grid.Column="1">
-            <Button Content="Graphics" Command="{Binding ShowGraphicsCardInfo}" Click="ShowContent"/>
+            <Button Content="Graphics" 
+                    Command="{Binding ShowGraphicsCardInfo}" 
+                    Click="ShowContent"/>
         </Border>
 
         <!-- Information Header -->
-        <Border Name="InformationHeader" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Visibility="Collapsed" Margin="0 10 0 0">
+        <Border Name="InformationHeader" 
+                Grid.Row="4" Grid.Column="0" 
+                Grid.ColumnSpan="3" 
+                Visibility="Collapsed" 
+                Margin="0 10 0 0">
             <TextBlock Text="{Binding SectionHeader}" FontSize="20"/>
         </Border>
 
@@ -121,7 +138,10 @@
                       VerticalScrollBarVisibility="Auto"
                       Visibility="Collapsed">
             <Border BorderBrush="Black" BorderThickness="0.7">
-                <ListView ItemsSource="{Binding CurrentData}" SelectionMode="Single" FontSize="18" Padding="20">
+                <ListView ItemsSource="{Binding CurrentData}"
+                          SelectionMode="Single" 
+                          FontSize="18" 
+                          Padding="20">
                     <ListView.Resources>
                         <Style TargetType="GridViewColumnHeader">
                             <Setter Property="Visibility" Value="Collapsed"/>

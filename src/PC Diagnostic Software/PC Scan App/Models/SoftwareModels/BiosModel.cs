@@ -1,6 +1,8 @@
-﻿using PC_Scan_App.ViewModels.HardwareViewModels;
+﻿// Ignore Spelling: App
 
-namespace PC_Scan_App.Models.HardwareModel
+using PC_Scan_App.ViewModels.SoftwareViewModels;
+
+namespace PC_Scan_App.Models.SoftwareModels
 {
     public class BiosModel
     {

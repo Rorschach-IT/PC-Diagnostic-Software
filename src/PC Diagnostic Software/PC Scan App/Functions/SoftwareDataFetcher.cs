@@ -1,9 +1,16 @@
-﻿using System.Management;
+﻿// Ignore Spelling: App
+
+using System.Management;
 using Microsoft.Win32;
-using PC_Scan_App.Models.HardwareModel;
+using PC_Scan_App.Models.SoftwareModels;
 
 namespace PC_Scan_App.Functions
 {
+    /*
+        All the methods retrieve software information and store it into the models objects
+        Initializing Management Object Searcher to query data
+        Some of those are private helper methods
+    */
     public class SoftwareDataFetcher
     {
         // Method to retrieve operating system information
@@ -11,7 +18,8 @@ namespace PC_Scan_App.Functions
         {
             var info = new SystemModel();
 
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem");
+            ManagementObjectSearcher searcher = new("SELECT * FROM Win32_OperatingSystem");
+
             var result = searcher.Get().Cast<ManagementObject>().FirstOrDefault();
 
             if (result != null)
@@ -45,7 +53,8 @@ namespace PC_Scan_App.Functions
         {
             var bios = new BiosModel();
 
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");
+            ManagementObjectSearcher searcher = new("SELECT * FROM Win32_BIOS");
+
             var obj = searcher.Get().OfType<ManagementObject>().FirstOrDefault();
 
             if (obj != null)
@@ -59,9 +68,6 @@ namespace PC_Scan_App.Functions
             return bios;
         }
 
-        /*
-            Private helper methods
-        */
         // Get registry value as integer
         private static int? GetRegistryValueAsInt(string path, string key)
         {
@@ -75,7 +81,7 @@ namespace PC_Scan_App.Functions
             return Registry.GetValue(path, key, null)?.ToString();
         }
 
-        // Method to convert WMI datetime to .NET datetime
+        // Method to convert WMI date time to .NET date time
         private static string? ConvertToDateTime(string? wmiDate)
         {
             if (!string.IsNullOrWhiteSpace(wmiDate))

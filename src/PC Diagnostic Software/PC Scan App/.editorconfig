@@ -1,0 +1,16 @@
+# All files
+[*]
+indent_style = space
+
+# Xml files
+[*.xml]
+indent_size = 2
+
+# Top-most EditorConfig file
+root = true
+
+# Applies to all C# files
+[*.cs]
+
+# Ignore spelling warnings for specific words
+dotnet_style_spelling_word_exclusions = App,MyWord,CustomAbbr

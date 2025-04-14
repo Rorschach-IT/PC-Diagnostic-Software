@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿// Ignore Spelling: App
+
+using System.Windows;
 using System.Windows.Controls;
 using PC_Scan_App.ViewModels;
 
@@ -9,18 +11,17 @@ namespace PC_Scan_App
         public MainWindow()
         {
             InitializeComponent();
-
-            // Set the DataContext for the window to the MainViewModel
             DataContext = new MainViewModel();
         }
 
+        // Method to show content
         private void ShowContent(object sender, RoutedEventArgs e)
         {
             InformationHeader.Visibility = Visibility.Visible;
             InformationDisplay.Visibility = Visibility.Visible;
-            //Height = 800;
         }
 
+        // Method to copy value from text box (only copy)
         private void CopyValue_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem &&

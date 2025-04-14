@@ -1,9 +1,13 @@
 ﻿using System.Management;
 using PC_Scan_App.Models.HardwareModels;
-using PC_Scan_App.Models.SoftwareModel;
 
 namespace PC_Scan_App.Functions
 {
+    /*
+        All the methods retrieve hardware information and store it into the models objects
+        Initializing Management Object Searcher to query data
+        Some methods use list<T> in case of multiple objects (for example: multiple discs, memory modules, etc.)
+    */
     public class HardwareDataFetcher
     {
         // Method to retrieve processor information
@@ -11,7 +15,8 @@ namespace PC_Scan_App.Functions
         {
             var processor = new ProcessorModel();
 
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
+            ManagementObjectSearcher searcher = new("SELECT * FROM Win32_Processor");
+
             var result = searcher.Get().Cast<ManagementObject>().FirstOrDefault();
 
             if (result != null)
@@ -33,8 +38,8 @@ namespace PC_Scan_App.Functions
         {
             var motherboard = new MotherboardModel();
 
-            // Initialize a ManagementObjectSearcher to query Win32_BaseBoard
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_BaseBoard");
+            ManagementObjectSearcher searcher = new("SELECT * FROM Win32_BaseBoard");
+
             var result = searcher.Get().Cast<ManagementObject>().FirstOrDefault();
 
             if (result != null)
@@ -48,14 +53,12 @@ namespace PC_Scan_App.Functions
             return motherboard;
         }
 
-        /*
-            LIST functions 
-        */
         // Method to retrieve memory information
         public static List<MemoryModel> GetMemoryInfo()
         {
             var memoryList = new List<MemoryModel>();
-            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PhysicalMemory");
+
+            ManagementObjectSearcher searcher = new("SELECT * FROM Win32_PhysicalMemory");
 
             foreach (ManagementObject obj in searcher.Get().OfType<ManagementObject>())
             {
@@ -80,7 +83,7 @@ namespace PC_Scan_App.Functions
         {
             var storageList = new List<StorageModel>();
 
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
+            ManagementObjectSearcher searcher = new("SELECT * FROM Win32_DiskDrive");
 
             foreach (ManagementObject obj in searcher.Get().Cast<ManagementObject>())
             {
@@ -100,10 +103,12 @@ namespace PC_Scan_App.Functions
             return storageList;
         }
 
+        // Method to retrieve graphics card information
         public static List<GraphicsCardModel> GetGraphicsCardInfo()
         {
             var graphicsCards = new List<GraphicsCardModel>();
-            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
+
+            ManagementObjectSearcher searcher = new("SELECT * FROM Win32_VideoController");
 
             foreach (ManagementObject obj in searcher.Get().Cast<ManagementObject>())
             {

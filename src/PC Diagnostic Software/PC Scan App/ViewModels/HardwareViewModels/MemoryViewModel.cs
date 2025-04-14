@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿// Ignore Spelling: App
+
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using PC_Scan_App.MVVM;
 
-namespace PC_Scan_App.ViewModels.SoftwareViewModels
+namespace PC_Scan_App.ViewModels.HardwareViewModels
 {
     public class MemoryViewModel : ViewModelBase
     {
@@ -26,7 +28,6 @@ namespace PC_Scan_App.ViewModels.SoftwareViewModels
             _mainViewModel = mainViewModel;
             _memory = _mainViewModel.Memory;  // Bind to Memory data from MainViewModel
 
-            // Trigger data loading manually if needed
             ShowMemoryInfo = new RelayCommand(_ => _mainViewModel.LoadMemoryData());
         }
 

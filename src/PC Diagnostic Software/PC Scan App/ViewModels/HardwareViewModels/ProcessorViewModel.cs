@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿// Ignore Spelling: App
+
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using PC_Scan_App.MVVM;
 
-namespace PC_Scan_App.ViewModels.SoftwareViewModels
+namespace PC_Scan_App.ViewModels.HardwareViewModels
 {
     public class ProcessorViewModel : ViewModelBase
     {
@@ -18,7 +20,7 @@ namespace PC_Scan_App.ViewModels.SoftwareViewModels
             }
         }
 
-        // Assuming the MainViewModel instance is passed via constructor (or you can use DI)
+        // Assuming MainViewModel is passed in through the constructor
         private readonly MainViewModel _mainViewModel;
 
         public ProcessorViewModel(MainViewModel mainViewModel)
@@ -26,7 +28,6 @@ namespace PC_Scan_App.ViewModels.SoftwareViewModels
             _mainViewModel = mainViewModel;
             _processor = _mainViewModel.Processor;  // Bind to Processor data from MainViewModel
 
-            // If you need to trigger data loading manually
             ShowProcessorInfo = new RelayCommand(_ => _mainViewModel.LoadProcessorData());
         }
 

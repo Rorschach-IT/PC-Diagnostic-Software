@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿// Ignore Spelling: App
+
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using PC_Scan_App.MVVM;
 
-namespace PC_Scan_App.ViewModels.HardwareViewModels
+namespace PC_Scan_App.ViewModels.SoftwareViewModels
 {
     public class BiosViewModel : ViewModelBase
     {
@@ -23,7 +25,7 @@ namespace PC_Scan_App.ViewModels.HardwareViewModels
         public BiosViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
-            _bios = _mainViewModel.Bios; // Bind to the Bios data from MainViewModel
+            _bios = _mainViewModel.Bios; // Bind to the BIOS data from MainViewModel
 
             ShowBiosInfo = new RelayCommand(_ => _mainViewModel.LoadBiosData()); // Trigger data loading in MainViewModel
         }

@@ -1,4 +1,6 @@
-﻿namespace PC_Scan_App.Models.SoftwareModel
+﻿// Ignore Spelling: App
+
+namespace PC_Scan_App.Models.HardwareModels
 {
     public class StorageModel
     {

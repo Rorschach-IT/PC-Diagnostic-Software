@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿// Ignore Spelling: App
+
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using PC_Scan_App.MVVM;
 
@@ -6,6 +8,7 @@ namespace PC_Scan_App.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        // Data collections
         public ObservableCollection<KeyValuePair<string, string>> Processor { get; }
         public ObservableCollection<KeyValuePair<string, string>> Motherboard { get; }
         public ObservableCollection<KeyValuePair<string, string>> Memory { get; }
@@ -15,13 +18,14 @@ namespace PC_Scan_App.ViewModels
         public ObservableCollection<KeyValuePair<string, string>> Bios { get; }
 
         // Current data collection that is bound to the ListView in XAML
-        private ObservableCollection<KeyValuePair<string, string>> _currentData;
+        private ObservableCollection<KeyValuePair<string, string>> _currentData = [];
         public ObservableCollection<KeyValuePair<string, string>> CurrentData
         {
             get { return _currentData; }
             set { _currentData = value; OnPropertyChanged(nameof(CurrentData)); }
         }
 
+        // Interface commands
         public ICommand ShowWindowsInfo { get; }
         public ICommand ShowBiosInfo { get; }
         public ICommand ShowProcessorInfo { get; }
@@ -52,6 +56,12 @@ namespace PC_Scan_App.ViewModels
             ShowBiosInfo = new RelayCommand(_ => LoadBiosData());
         }
 
+        /*
+            Those methods are used to load and bind data to the CurrentData property
+            They are called from the interface commands
+            At the end of every method, build in Clear() method is called in order to avoid duplicates
+        */
+
         // Method to load and bind the correct data to the CurrentData property
         private void LoadAndBindData(ObservableCollection<KeyValuePair<string, string>> data)
         {
@@ -64,10 +74,10 @@ namespace PC_Scan_App.ViewModels
             OnPropertyChanged(nameof(CurrentData));  // Notify UI to update
         }
 
-        private string _sectionHeader;
+        private string? _sectionHeader;
         public string SectionHeader
         {
-            get { return _sectionHeader; }
+            get { return _sectionHeader!; }
             set { _sectionHeader = value; OnPropertyChanged(nameof(SectionHeader)); }
         }
 
@@ -80,8 +90,8 @@ namespace PC_Scan_App.ViewModels
 
             var systemInfo = Functions.SoftwareDataFetcher.GetOperatingSystemInfo();
 
-            System.Add(new KeyValuePair<string, string>("OS Name:", systemInfo.Caption));
-            System.Add(new KeyValuePair<string, string>("Version:", systemInfo.Version));
+            System.Add(new KeyValuePair<string, string>("OS Name:", systemInfo.Caption!));
+            System.Add(new KeyValuePair<string, string>("Version:", systemInfo.Version!));
             System.Add(new KeyValuePair<string, string>("Build Number:", systemInfo.BuildNumber?.ToString() ?? "N/A"));
             System.Add(new KeyValuePair<string, string>("Last Boot Time:", systemInfo.LastBootUpTime?.ToString() ?? "N/A"));
             System.Add(new KeyValuePair<string, string>("Update Version:", systemInfo.UpdateVersion ?? "N/A"));
@@ -96,6 +106,7 @@ namespace PC_Scan_App.ViewModels
             System.Add(new KeyValuePair<string, string>("Total Visible Memory Size:", systemInfo.TotalVisibleMemorySize ?? "N/A"));
 
             LoadAndBindData(System);
+
             System.Clear();
         }
 
@@ -114,6 +125,7 @@ namespace PC_Scan_App.ViewModels
             Bios.Add(new KeyValuePair<string, string>("Serial Number:", biosInfo.SerialNumber ?? "N/A"));
 
             LoadAndBindData(Bios);
+
             Bios.Clear();
         }
 
@@ -181,11 +193,11 @@ namespace PC_Scan_App.ViewModels
                 Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Serial Number:", mem.SerialNumber ?? "N/A"));
                 Memory.Add(new KeyValuePair<string, string>($"Module {i + 1} - Form Factor:", mem.FormFactor?.ToString() ?? "N/A"));
 
-                Memory.Add(new KeyValuePair<string, string>("", "")); // Separator
+                Memory.Add(new KeyValuePair<string, string>("", "")); // separator (if more than one module)
             }
 
-
             LoadAndBindData(Memory);
+
             Memory.Clear();
         }
 
@@ -214,11 +226,11 @@ namespace PC_Scan_App.ViewModels
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Media Type:", disk.MediaType ?? "N/A"));
                 Storage.Add(new KeyValuePair<string, string>($"Drive {i + 1} - Serial Number:", disk.SerialNumber ?? "N/A"));
 
-                Storage.Add(new KeyValuePair<string, string>("", "")); // separator
+                Storage.Add(new KeyValuePair<string, string>("", "")); // separator (if more than one drive)
             }
 
-
             LoadAndBindData(Storage);
+
             Storage.Clear();
         }
 
@@ -234,6 +246,7 @@ namespace PC_Scan_App.ViewModels
             for (int i = 0; i < graphicsCards.Count; i++)
             {
                 var gpu = graphicsCards[i];
+
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Name:", gpu.Name ?? "N/A"));
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Manufacturer:", gpu.Manufacturer ?? "N/A"));
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Description:", gpu.Description ?? "N/A"));
@@ -241,10 +254,11 @@ namespace PC_Scan_App.ViewModels
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Video Processor:", gpu.VideoProcessor ?? "N/A"));
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Adapter RAM (MB):", gpu.AdapterRAM.HasValue ? (gpu.AdapterRAM.Value / (1024 * 1024)).ToString() : "N/A"));
                 GraphicsCards.Add(new KeyValuePair<string, string>($"GPU {i + 1} - Status:", gpu.Status ?? "N/A"));
-                GraphicsCards.Add(new KeyValuePair<string, string>("", "")); // separator
+                GraphicsCards.Add(new KeyValuePair<string, string>("", "")); // separator (if more than one GPU)
             }
 
             LoadAndBindData(GraphicsCards);
+
             GraphicsCards.Clear();
         }
     }

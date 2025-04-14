@@ -14,4 +14,12 @@
     <PackageReference Include="System.ObjectModel" Version="4.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="M:\Git repozitories\PC Diagnostic Software\PC-Diagnostic-Software\src\PC Diagnostic Software\PC Scan App\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="M:\Git repozitories\PC Diagnostic Software\PC-Diagnostic-Software\src\PC Diagnostic Software\PC Scan App\.editorconfig" />
+  </ItemGroup>
+
 </Project>

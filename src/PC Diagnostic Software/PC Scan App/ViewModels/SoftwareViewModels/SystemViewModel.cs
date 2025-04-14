@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿// Ignore Spelling: App
+
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using PC_Scan_App.MVVM;
 
-namespace PC_Scan_App.ViewModels.HardwareViewModels
+namespace PC_Scan_App.ViewModels.SoftwareViewModels
 {
     public class SystemViewModel : ViewModelBase
     {
@@ -18,6 +20,7 @@ namespace PC_Scan_App.ViewModels.HardwareViewModels
             }
         }
 
+        // Assuming MainViewModel is passed in through the constructor
         private readonly MainViewModel _mainViewModel;
 
         public SystemViewModel(MainViewModel mainViewModel)
@@ -25,7 +28,7 @@ namespace PC_Scan_App.ViewModels.HardwareViewModels
             _mainViewModel = mainViewModel;
             _system = _mainViewModel.System; // Bind to the System data from MainViewModel
 
-            ShowWindowsInfo = new RelayCommand(_ => _mainViewModel.LoadSystemData()); // Trigger data loading in MainViewModel
+            ShowWindowsInfo = new RelayCommand(_ => _mainViewModel.LoadSystemData());
         }
 
         public ICommand ShowWindowsInfo { get; }

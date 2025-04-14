@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿// Ignore Spelling: App
+
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using PC_Scan_App.MVVM;
 
@@ -26,7 +28,6 @@ namespace PC_Scan_App.ViewModels.HardwareViewModels
             _mainViewModel = mainViewModel;
             _graphicsCards = _mainViewModel.GraphicsCards; // Bind to GraphicsCards data from MainViewModel
 
-            // Trigger data loading manually if needed
             ShowGraphicsCardInfo = new RelayCommand(_ => _mainViewModel.LoadGraphicsCardData());
         }
 

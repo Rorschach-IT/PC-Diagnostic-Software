@@ -1,7 +1,10 @@
-﻿using System.ComponentModel;
+﻿// Ignore Spelling: App MVVM
+
+using System.ComponentModel;
 
 namespace PC_Scan_App.MVVM
 {
+    // Template for ViewModels (multiple references)
     public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
