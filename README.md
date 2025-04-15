@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # PC Scan App
 I created a basic diagnostic tool for windows, that provides information about computer software and hardware components:
 - windows full information
@@ -37,3 +38,7 @@ Software is written in design pattern MVVM using WPF C# GUI .NET framework, it f
 
 # Licence
 Product is licenced under GPLv3.
+=======
+# What is this branch?
+Default repo branch
+>>>>>>> b73b76a4eb22e14adc2693cf3596b3244016f90c
