@@ -37,6 +37,6 @@ Software is written in design pattern MVVM using WPF C# GUI .NET framework, it f
 
 # Licence
 Product is licenced under GPLv3.
-=======
+
 # What is this branch?
 Default repo branch
