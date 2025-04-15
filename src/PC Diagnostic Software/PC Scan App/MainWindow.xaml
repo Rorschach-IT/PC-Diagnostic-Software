@@ -6,9 +6,8 @@
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
         SizeToContent="Height"
-        Width="Auto"
-        MaxWidth="1000"
-        MaxHeight="800">
+        Width="1000"
+        Height="800">
 
     <Window.Resources>
         <Style TargetType="TextBlock">
@@ -66,7 +65,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- Headers -->
@@ -134,7 +133,7 @@
                       Grid.ColumnSpan="3"
                       Padding="10" 
                       Margin="10" 
-                      MaxHeight="300"
+                      MaxHeight="550"
                       HorizontalScrollBarVisibility="Auto" 
                       VerticalScrollBarVisibility="Auto"
                       Visibility="Collapsed">
@@ -161,7 +160,7 @@
                             <GridViewColumn>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Value, Mode=OneWay}">
+                                        <TextBox Text="{Binding Value, Mode=OneWay}" Width="500">
                                             <TextBox.ContextMenu>
                                                 <ContextMenu>
                                                     <MenuItem Header="Copy" Click="CopyValue_Click"/>
