@@ -5,8 +5,6 @@ VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PC Scan App", "PC Scan App\PC Scan App.csproj", "{F110B2B2-F444-42AC-BB5B-0D6CD21092C0}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PC Scan App Installer", "PC Scan App Installer\PC Scan App Installer.vdproj", "{70EBB18C-F7A7-4B57-9963-15A340164208}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,11 @@ Global
 		{F110B2B2-F444-42AC-BB5B-0D6CD21092C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F110B2B2-F444-42AC-BB5B-0D6CD21092C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F110B2B2-F444-42AC-BB5B-0D6CD21092C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{70EBB18C-F7A7-4B57-9963-15A340164208}.Debug|Any CPU.ActiveCfg = Debug
-		{70EBB18C-F7A7-4B57-9963-15A340164208}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {520FC144-24DF-4B49-93A3-48517D91B533}
 	EndGlobalSection
 EndGlobal

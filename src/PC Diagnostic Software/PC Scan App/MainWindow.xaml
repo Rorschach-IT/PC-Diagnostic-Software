@@ -133,7 +133,7 @@
                       Grid.ColumnSpan="3"
                       Padding="10" 
                       Margin="10" 
-                      MaxHeight="550"
+                      MaxHeight="400"
                       HorizontalScrollBarVisibility="Auto" 
                       VerticalScrollBarVisibility="Auto"
                       Visibility="Collapsed">
