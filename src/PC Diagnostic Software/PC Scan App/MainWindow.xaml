@@ -8,7 +8,14 @@
         SizeToContent="Height"
         Width="1000"
         Height="800">
-
+    
+    <Window.Background>
+        <RadialGradientBrush Center="0.5,0.5" GradientOrigin="0.5,0.5" RadiusX="0.8" RadiusY="0.8">
+            <GradientStop Color="#d5dbdb" Offset="0"/>
+            <GradientStop Color="#e1f2f1" Offset="1"/>
+        </RadialGradientBrush>
+    </Window.Background>
+    
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="30"/>
@@ -19,7 +26,7 @@
 
         <Style TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Background" Value="#FBF9F9"/>
+            <Setter Property="Background" Value="#f0f5f5"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="Padding" Value="20"/>
@@ -52,7 +59,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid Background="#FBF9F9" Margin="10" Height="auto">
+    <Grid Margin="10" Height="auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*" />
@@ -137,7 +144,7 @@
                       HorizontalScrollBarVisibility="Auto" 
                       VerticalScrollBarVisibility="Auto"
                       Visibility="Collapsed">
-            <Border BorderBrush="Black" BorderThickness="0.7">
+            <Border BorderBrush="Black" BorderThickness="0.7"                       Background="#edf0f0">
                 <ListView ItemsSource="{Binding CurrentData}"
                           SelectionMode="Single" 
                           FontSize="18" 

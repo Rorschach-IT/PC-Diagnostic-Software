@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PC Scan App", "PC Scan App\PC Scan App.csproj", "{F110B2B2-F444-42AC-BB5B-0D6CD21092C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGrid", "TestGrid\TestGrid.csproj", "{17855A24-41B9-48CA-9ACE-903D8C5E8620}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F110B2B2-F444-42AC-BB5B-0D6CD21092C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F110B2B2-F444-42AC-BB5B-0D6CD21092C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F110B2B2-F444-42AC-BB5B-0D6CD21092C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17855A24-41B9-48CA-9ACE-903D8C5E8620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17855A24-41B9-48CA-9ACE-903D8C5E8620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17855A24-41B9-48CA-9ACE-903D8C5E8620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17855A24-41B9-48CA-9ACE-903D8C5E8620}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
