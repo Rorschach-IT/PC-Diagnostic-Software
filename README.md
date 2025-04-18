@@ -27,7 +27,7 @@ You can either install software by setup.msi or download .rar or .zip package, u
 # Usage
 Run PC Scan App.exe
 
-# How the application work?
+# How the application works?
 Software is written in design pattern MVVM using WPF C# GUI .NET framework, it fetches data from WMI System Management package and prints it on the UI.
 
 # Future updates
